@@ -1,0 +1,14 @@
+---
+---
+
+@import "{{ site.theme }}";
+
+.btn-container {    
+    text-align: center;
+}
+.btn {  
+    background-color:  $header-bg-color-secondary;
+    &:hover {
+        background-color: $header-bg-color;
+    }
+}
