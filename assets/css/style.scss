@@ -3,12 +3,112 @@
 
 @import "{{ site.theme }}";
 
+$transition_1: all 650ms ease-in-out;
+
+@keyframes borderize {
+    0% {
+        border-radius: 7px 5px 5px 7px;
+    }
+    10% {
+        border-radius: 7px 5px 5px 7px;
+    }
+    20% {
+        border-radius: 10px 5px 5px 10px;
+    }
+    35% {
+        border-radius: 15px 5px 5px 15px;
+    }
+    50% {
+        border-radius: 20px 5px 5px 20px;
+    }
+    70% {
+        border-radius: 20px 8px 8px 20px;
+    }
+    100% {
+        border-radius: 20px;
+        color: white;
+    }
+}
+
+
 .btn-container {    
     text-align: center;
 }
 .btn {  
-    background-color:  $header-bg-color-secondary;
+    //box-shadow: outset 3px red;
+    position: relative;
+    font-weight: 800;
+    background-color: $header-bg-color-secondary;
+    padding: 10px 35px;
+    overflow: hidden;
+    transition: $transition_1;
+    &:not(.cv-container) > i { // fontawesome icon
+        transition: $transition_1;
+        opacity: 0;
+        position: relative;
+        left: -100%;
+    }
+    &:not(.cv-container) > span { // button content
+        position: relative;
+        transition: right 300ms 450ms ease-in-out;
+        right: 11px;
+    }
+    a { 
+        opacity: 0;
+        span { color: white; }
+    }
+    &:not(.cv-container):before {
+        content:'';
+        position: absolute;
+        top: 0px;
+        left: 0px;
+        width: 0px;
+        height: 100%;
+        background: rgba(255,255,255,0.3);
+        transition: width 1250ms ease-in-out;;
+    } 
+    &:hover:not(.disabled) {
+        &:not(.cv-container) {
+            animation: borderize 1350ms ease-in-out 50ms 1 normal forwards;
+            background-color: $header-bg-color;
+            transition: background-color 350ms 650ms ease-in-out;
+        }
+        > i { opacity: 1; left: 0; }
+        > span { right: 0; }
+        a { 
+            opacity: 1; 
+            span {opacity: 1;}
+        }
+        &:before {
+            width: 100%;
+        }
+        
+    }
+    &.disabled {
+        cursor: none;
+        background-color: grey;
+        &:hover {
+            pointer-events:none;
+        };
+    }
+}
+
+.cv-container{
+    transition: $transition_1;
+    border: 3px outset $header-bg-color;
+    span { right: 3px; }
+    cursor: pointer;
     &:hover {
         background-color: $header-bg-color;
+        border: 3px dotted white;
+        span {
+            opacity: 0;
+            transition: inherit;
+        }
+        .left, .right {
+            opacity:1;
+            color: white;
+            transition: inherit;
+        }
     }
 }
